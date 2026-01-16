@@ -1,52 +1,74 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import Layout from './components/layout/Layout';
 
-// function App() {
-//   const [count, setCount] = useState(0)
+import Dashboard from './pages/Dashboard';
+// import MockInterview from './pages/MockInterview';
+// import DSAPractice from './pages/DSAPractice';
+import ResumeAnalyzer from './pages/ResumeAnalyzer';
+// import GroupDiscussion from './pages/GroupDiscussion';
+// import SettingsPage from './pages/SettingsPage';
 
-//   return (
-//     <>
-//       <div>
-//         <a href="https://vite.dev" target="_blank">
-//           <img src={viteLogo} className="logo" alt="Vite logo" />
-//         </a>
-//         <a href="https://react.dev" target="_blank">
-//           <img src={reactLogo} className="logo react" alt="React logo" />
-//         </a>
-//       </div>
-//       <h1>Vite + React</h1>
-//       <div className="card">
-//         <button onClick={() => setCount((count) => count + 1)}>
-//           count is {count}
-//         </button>
-//         <p>
-//           Edit <code>src/App.jsx</code> and save to test HMR
-//         </p>
-//       </div>
-//       <p className="read-the-docs">
-//         Click on the Vite and React logos to learn more
-//       </p>
-//     </>
-//   )
-// }
 
-// export default App
-
-//import './App.css'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from './pages/Dashboard.jsx';
-import ResumeAnalyzer from './pages/ResumeAnalyzer.jsx';
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#4f46e5', // Indigo
+    },
+    secondary: {
+      main: '#10b981', // Emerald
+    },
+    background: {
+      default: '#f9fafb',
+      paper: '#ffffff',
+    },
+  },
+  typography: {
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+    ].join(','),
+  },
+  shape: {
+    borderRadius: 12,
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          fontWeight: 600,
+        },
+      },
+    },
+  },
+});
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/resume-analyzer" element={<ResumeAnalyzer />} />
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Dashboard />} />
+            {/* <Route path="mock-interviews" element={<MockInterview />} />
+            <Route path="dsa-practice" element={<DSAPractice />} /> */}
+            <Route path="resume" element={<ResumeAnalyzer />} />
+            {/* <Route path="group-discussion" element={<GroupDiscussion />} />
+            <Route path="settings" element={<SettingsPage />} /> */}
+          </Route>
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
-export default App
+
+export default App;
