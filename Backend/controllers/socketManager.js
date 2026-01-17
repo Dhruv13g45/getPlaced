@@ -1,4 +1,11 @@
 import { Server } from "socket.io";
+const connections = {};
+/*
+connections = {
+  room1: [socketId1, socketId2],
+  room2: [socketId3]
+}
+*/
 
 export const connectToServer = (server) => {
   const io = new Server(server, {
@@ -9,16 +16,16 @@ export const connectToServer = (server) => {
   });
 
   io.on("connection", (socket) => {
+    console.log("something connected");
+
     socket.on("join-call", (path) => {
-      if (connection[path] === undefined) {
-        connection[path] = [];
+      if (connections[path] === undefined) {
+        connections[path] = [];
       }
-      connection[path].push(socket.id);
-      for (let i = 0; i < connection[path].length; i++) {
-        io.to(
-          connection[path][i].emit("user-joined", socket.id, connection[path])
-        );
-      }
+      connections[path].push(socket.id);
+      connections[path].forEach((id) => {
+        io.to(id).emit("user-joined", socket.id, connections[path]);
+      });
     });
 
     //signaling stage
