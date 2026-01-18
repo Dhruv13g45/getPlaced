@@ -1,4 +1,5 @@
 import React from 'react';
+import CalculateIcon from '@mui/icons-material/Calculate';
 import {
     Drawer,
     List,
@@ -30,6 +31,7 @@ const menuItems = [
     { text: 'Mock Interviews', icon: TargetIcon, path: '/mock-interviews' },
     { text: 'DSA Practice', icon: CodeIcon, path: '/dsa-practice' },
     { text: 'Resume', icon: DescriptionIcon, path: '/resume' },
+    { text: 'Practise Aptitude', icon: CalculateIcon, path: '/aptitude'},
     { text: 'Group Discussion', icon: GroupIcon, path: '/group-discussion' },
 ];
 

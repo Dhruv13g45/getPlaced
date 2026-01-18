@@ -5,11 +5,12 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Layout from './components/layout/Layout';
 
 import Dashboard from './pages/Dashboard';
-// import MockInterview from './pages/MockInterview';
-// import DSAPractice from './pages/DSAPractice';
+import MockInterview from './pages/MockInterview';
+import DSAPractice from './pages/DSAPractice';
 import ResumeAnalyzer from './pages/ResumeAnalyzer';
-// import GroupDiscussion from './pages/GroupDiscussion';
-// import SettingsPage from './pages/SettingsPage';
+import GroupDiscussion from './pages/GroupDiscussion';
+import SettingsPage from './pages/SettingsPage';
+import AptitudePractice from './pages/AptitudePractice';
 
 
 const theme = createTheme({
@@ -59,11 +60,12 @@ function App() {
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<Dashboard />} />
-            {/* <Route path="mock-interviews" element={<MockInterview />} />
-            <Route path="dsa-practice" element={<DSAPractice />} /> */}
+            <Route path="mock-interviews" element={<MockInterview />} />
+            <Route path="aptitude" element={<AptitudePractice />} />
+            <Route path="dsa-practice" element={<DSAPractice />} /> 
             <Route path="resume" element={<ResumeAnalyzer />} />
-            {/* <Route path="group-discussion" element={<GroupDiscussion />} />
-            <Route path="settings" element={<SettingsPage />} /> */}
+           <Route path="group-discussion" element={<GroupDiscussion />} />
+            <Route path="settings" element={<SettingsPage />} />
           </Route>
         </Routes>
       </Router>
