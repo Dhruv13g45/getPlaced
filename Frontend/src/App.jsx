@@ -1,4 +1,3 @@
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Dashboard from './pages/Dashboard.jsx';
 import ResumeAnalyzer from './pages/ResumeAnalyzer.jsx';

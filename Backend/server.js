@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import { createServer } from "http";
 import { connectToServer } from "./controllers/socketManager.js";
+import resumeRoutes from "./routes/resume.routes.js";
 
 dotenv.config();
 const app = express();
@@ -26,6 +27,8 @@ const connectDB = async () => {
 };
 
 connectDB();
+
+app.use("/api/resume", resumeRoutes);
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {

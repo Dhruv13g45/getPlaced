@@ -1,0 +1,44 @@
+/* Page wrapper */
+.resume-root {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f9fafb;
+  display: flex;
+  justify-content: center;
+}
+
+/* Fade animation for results */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Upload box hover effect */
+.upload-box:hover {
+  border-color: #6366f1;
+  background-color: #f8faff;
+  cursor: pointer;
+}
+
+/* ATS score text */
+.ats-score {
+  font-weight: 700;
+  color: #10b981;
+}
+
+/* Mobile tweaks */
+@media (max-width: 600px) {
+  .page-title {
+    font-size: 1.6rem;
+  }
+}
