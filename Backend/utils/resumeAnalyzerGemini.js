@@ -1,49 +1,3 @@
-// import { GoogleGenerativeAI } from "@google/generative-ai";
-
-// const genAI = new GoogleGenerativeAI(
-//   process.env.GEMINI_RESUME_ANALYZER_API_KEY,
-// );
-
-// export const analyzeResumeWithGemini = async (resumeText) => {
-//   try {
-//     console.log(
-//       "Resume Gemini key loaded:",
-//       !!process.env.GEMINI_RESUME_ANALYZER_API_KEY,
-//     );
-
-//     const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-
-//     const prompt = `
-// You are an ATS resume analyzer.
-
-// Return ONLY valid JSON in this exact format:
-// {
-//   "atsScore": number,
-//   "keywordMatch": number,
-//   "formattingScore": number,
-//   "suggestions": [
-//     { "title": string, "desc": string, "type": "critical" | "warning" | "good" }
-//   ]
-// }
-
-// Resume text:
-// ${resumeText.slice(0, 5000)}
-// `;
-
-//     const result = await model.generateContent(prompt);
-//     const response = result.response;
-//     const text = response.text();
-
-//     return JSON.parse(text);
-//   } catch (err) {
-//     console.error("====== GEMINI ERROR ======");
-//     console.error(err.message);
-//     console.error("==========================");
-
-//     throw new Error("Gemini analysis failed");
-//   }
-// };
-
 import dotenv from "dotenv";
 dotenv.config();
 
@@ -55,23 +9,46 @@ const ai = new GoogleGenAI({
 
 export async function analyzeResumeWithGemini(resumeText) {
   try {
-    console.log(
-      "Resume Gemini key loaded:",
-      !!process.env.GEMINI_RESUME_ANALYZER_API_KEY,
-    );
-
     const prompt = `
-You are an ATS resume analyzer.
+You are an expert ATS (Applicant Tracking System) resume evaluator.
 
-Return ONLY valid JSON in this exact format:
+TASK:
+Analyze the resume and return ALL relevant improvement suggestions.
+Give only 2 to 4 suggestions that will have the HIGHEST impact on improving the ATS score.
+Include every meaningful issue that could improve ATS score.
+
+RULES:
+- Return ONLY valid JSON (no markdown, no explanation).
+- Suggestions must be categorized by impact: HIGH, MEDIUM, or LOW.
+- HIGH impact = major ATS blockers.
+- MEDIUM impact = improvements that increase match rate.
+- LOW impact = polish and optional enhancements.
+- Provide before/after examples ONLY when applicable.
+
+OUTPUT FORMAT (STRICT):
 {
   "atsScore": number,
-  "keywordMatch": number,
-  "formattingScore": number,
+  "verdict": "Excellent" | "Good" | "Average" | "Poor",
+  "breakdown": {
+    "format": number,
+    "content": number,
+    "keywords": number
+  },
   "suggestions": [
-    { "title": string, "desc": string, "type": "critical" | "warning" | "good" }
+    {
+      "impact": "HIGH" | "MEDIUM" | "LOW",
+      "title": string,
+      "description": string,
+      "before": string | null,
+      "after": string | null
+    }
   ]
 }
+
+SCORING GUIDELINES:
+- Format: layout, section order, bullet usage, ATS readability
+- Content: clarity, achievements, action verbs, impact
+- Keywords: technical and role-specific terms
 
 Resume text:
 ${resumeText.slice(0, 5000)}
@@ -89,14 +66,13 @@ ${resumeText.slice(0, 5000)}
 
     const rawText = result.text;
 
+    // Safety cleanup (Gemini sometimes adds stray formatting)
     const cleanedText = rawText
       .replace(/```json/g, "")
       .replace(/```/g, "")
       .trim();
 
     return JSON.parse(cleanedText);
-
-    return JSON.parse(result.text);
   } catch (err) {
     console.error("====== GEMINI RESUME ERROR ======");
     console.error(err);

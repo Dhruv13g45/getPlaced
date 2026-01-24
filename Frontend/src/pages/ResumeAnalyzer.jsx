@@ -8,25 +8,11 @@ import {
     Paper,
     Typography,
     Button,
-    List,
-    ListItem,
-    ListItemText,
-    ListItemAvatar,
-    Avatar,
     Chip,
-    Divider,
     LinearProgress
 } from "@mui/material";
 
-import {
-    CloudUploadOutlined,
-    CheckCircleOutline,
-    HighlightOff,
-    LightbulbOutlined,
-    InsertDriveFileOutlined,
-    AutoAwesome
-} from "@mui/icons-material";
-
+import { CloudUploadOutlined } from "@mui/icons-material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 const theme = createTheme({
@@ -42,11 +28,14 @@ const ResumeAnalyzer = () => {
     const [uploading, setUploading] = useState(false);
 
     const [atsScore, setAtsScore] = useState(0);
-    const [keywordMatch, setKeywordMatch] = useState(0);
-    const [formatting, setFormatting] = useState(0);
+    const [verdict, setVerdict] = useState("");
+    const [breakdown, setBreakdown] = useState({
+        format: 0,
+        content: 0,
+        keywords: 0,
+    });
     const [suggestions, setSuggestions] = useState([]);
 
-    // 🔹 API CALL
     const handleUpload = async (e) => {
         const file = e.target.files[0];
         if (!file) return;
@@ -65,13 +54,11 @@ const ResumeAnalyzer = () => {
             const data = await res.json();
 
             setAtsScore(data.atsScore);
-            setKeywordMatch(data.breakdown.keywordMatch);
-            setFormatting(data.breakdown.formatting);
+            setVerdict(data.verdict);
+            setBreakdown(data.breakdown);
             setSuggestions(data.suggestions);
-
             setAnalyzed(true);
         } catch (err) {
-            console.error(err);
             alert("Resume analysis failed");
         } finally {
             setUploading(false);
@@ -84,109 +71,131 @@ const ResumeAnalyzer = () => {
                 <Container maxWidth="md">
 
                     {/* Header */}
-                    <Box mb={5}>
+                    <Box mb={4}>
                         <Typography
                             variant="h5"
-                            className="page-title"
                             fontWeight={700}
-                            mb={1}
-                            color="#111827"
+                            sx={{ color: "#111827" }}
                         >
-                            Resume Analyzer 📄
+                            Resume Analyzer
                         </Typography>
-                        <Typography color="#6B7280">
-                            Check your ATS score and get instant feedback.
+
+                        <Typography sx={{ color: "#6B7280" }}>
+                            Get your ATS score and improvement suggestions
                         </Typography>
                     </Box>
 
-                    {!analyzed ? (
-                        /* Upload State */
-                        <Paper
-                            elevation={0}
-                            className="upload-box"
-                            sx={{
-                                p: 6,
-                                border: "2px dashed #E5E7EB",
-                                borderRadius: 2,
-                                bgcolor: "white",
-                                textAlign: "center"
-                            }}
-                        >
-                            <CloudUploadOutlined sx={{ fontSize: 48, color: "#6366F1", mb: 2 }} />
+                    {/* Upload Box */}
+                    {!analyzed && (
+                        <Paper className="upload-box" elevation={0}>
+                            <CloudUploadOutlined sx={{ fontSize: 56, color: "#6366F1" }} />
 
-                            <Typography variant="h6" fontWeight={600}>
-                                {uploading ? "Analyzing..." : "Upload your Resume"}
+                            <Typography fontWeight={600}>
+                                {uploading ? "Analyzing..." : "Drag & drop your resume"}
                             </Typography>
 
-                            <Typography color="#6B7280" mb={2}>
-                                PDF or DOCX supported
+                            <Typography color="#6B7280">
+                                or click to browse (PDF, DOC, DOCX)
                             </Typography>
 
                             {uploading ? (
-                                <LinearProgress sx={{ height: 8, borderRadius: 4 }} />
+                                <LinearProgress
+                                    sx={{ width: "60%", height: 8, borderRadius: 4 }}
+                                />
                             ) : (
-                                <Button
-                                    variant="contained"
-                                    component="label"
-                                    sx={{ textTransform: "none", px: 5 }}
-                                >
-                                    Select File
-                                    <input hidden type="file" accept=".pdf,.docx" onChange={handleUpload} />
+                                <Button variant="contained" component="label">
+                                    Choose File
+                                    <input hidden type="file" onChange={handleUpload} />
                                 </Button>
                             )}
                         </Paper>
-                    ) : (
-                        /* Results */
+                    )}
+
+                    {/* Results */}
+                    {analyzed && (
                         <Box className="fade-in">
 
-                            {/* Scores */}
-                            <Grid container spacing={3} mb={5}>
-                                <Grid item xs={12} md={6}>
-                                    <Paper sx={{ p: 3 }}>
-                                        <Typography color="#6B7280">ATS Score</Typography>
-                                        <Typography variant="h3" className="ats-score">
-                                            {atsScore}<span style={{ fontSize: "1.5rem", color: "#9CA3AF" }}>/100</span>
-                                        </Typography>
-                                        <Chip label="Good Job!" sx={{ mt: 1 }} />
-                                    </Paper>
-                                </Grid>
+                            {/* ATS SCORE CARD */}
+                            <Paper
+                                className="ats-card"
+                                sx={{
+                                    width: "100%",
+                                    mb: 4,
+                                }}
+                            >
+                                <Typography sx={{ opacity: 0.9 }}>
+                                    ATS Compatibility Score
+                                </Typography>
 
-                                <Grid item xs={12} md={6}>
-                                    <Paper sx={{ p: 2, mb: 2 }}>
-                                        <Typography>Keywords Match</Typography>
-                                        <LinearProgress value={keywordMatch} variant="determinate" />
-                                    </Paper>
-                                    <Paper sx={{ p: 2 }}>
-                                        <Typography>Formatting</Typography>
-                                        <LinearProgress value={formatting} variant="determinate" color="secondary" />
-                                    </Paper>
-                                </Grid>
-                            </Grid>
+                                <Typography variant="h2" fontWeight={800}>
+                                    {atsScore}
+                                    <span style={{ fontSize: "1.4rem" }}>/100</span>
+                                </Typography>
 
-                            {/* Suggestions */}
-                            <Paper>
-                                <List>
-                                    {suggestions.map((item, idx) => (
-                                        <React.Fragment key={idx}>
-                                            <ListItem>
-                                                <ListItemAvatar>
-                                                    <Avatar>
-                                                        {item.type === "critical" && <HighlightOff />}
-                                                        {item.type === "warning" && <LightbulbOutlined />}
-                                                        {item.type === "good" && <CheckCircleOutline />}
-                                                    </Avatar>
-                                                </ListItemAvatar>
-                                                <ListItemText
-                                                    primary={item.title}
-                                                    secondary={item.desc}
-                                                />
-                                                <Chip label={item.type} />
-                                            </ListItem>
-                                            {idx < suggestions.length - 1 && <Divider />}
-                                        </React.Fragment>
-                                    ))}
-                                </List>
+                                <Typography sx={{ opacity: 0.9, mb: 2 }}>
+                                    {verdict}
+                                </Typography>
+
+                                <Grid container spacing={2} justifyContent="center">
+                                    <Grid item>Format: {breakdown.format}%</Grid>
+                                    <Grid item>Content: {breakdown.content}%</Grid>
+                                    <Grid item>Keywords: {breakdown.keywords}%</Grid>
+                                </Grid>
                             </Paper>
+
+                            {/* SUGGESTIONS */}
+                            <Box mt={4}>
+                                <Typography
+                                    variant="h6"
+                                    fontWeight={700}
+                                    mb={2}
+                                    sx={{ textAlign: "left", color: "#111827" }}
+                                >
+                                    Top Suggestions :
+                                </Typography>
+
+                                {suggestions.map((item, idx) => (
+                                    <Paper
+                                        key={idx}
+                                        className="suggestion-card"
+                                        sx={{
+                                            width: "100%",
+                                            borderLeft: `6px solid ${item.impact === "HIGH"
+                                                ? "#EF4444"
+                                                : item.impact === "MEDIUM"
+                                                    ? "#F59E0B"
+                                                    : "#10B981"
+                                                }`,
+                                        }}
+                                    >
+                                        <Chip
+                                            label={`${item.impact} IMPACT`}
+                                            size="small"
+                                            className={`impact-chip ${item.impact.toLowerCase()}`}
+                                        />
+
+                                        <Typography fontWeight={700} mb={0.5}>
+                                            {item.title}
+                                        </Typography>
+
+                                        <Typography color="text.secondary" mb={1}>
+                                            {item.description}
+                                        </Typography>
+
+                                        {item.before && (
+                                            <Typography className="before-text">
+                                                Before: "{item.before}"
+                                            </Typography>
+                                        )}
+
+                                        {item.after && (
+                                            <Typography className="after-text">
+                                                After: "{item.after}"
+                                            </Typography>
+                                        )}
+                                    </Paper>
+                                ))}
+                            </Box>
 
                             <Box textAlign="center" mt={4}>
                                 <Button onClick={() => setAnalyzed(false)}>

@@ -28,6 +28,12 @@ body {
   min-height: 100vh;
 }
 
+html,
+body,
+#root {
+  height: auto;
+  overflow-y: auto;
+}
 
 h1 {
   font-size: 3.2em;
@@ -64,4 +70,11 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+html,
+body {
+  width: 100%;
+  height: auto;
+  overflow-y: auto;
 }

@@ -33,7 +33,11 @@ const Layout = () => {
                     sx={{
                         flexGrow: 1,
                         p: 3,
-                        pt: { xs: 10, md: 4 }, // push content below AppBar
+                        pt: { xs: 10, md: 4 },
+
+                        /* 🔥 SCROLL FIX */
+                        overflowY: "auto",
+                        height: "calc(100vh - 64px)", // header height
                     }}
                 >
                     <Outlet />
