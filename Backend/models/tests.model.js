@@ -5,7 +5,6 @@ const testsModel = new Schema({
     userId:{
         type: mongoose.Schema.Types.ObjectId,
         ref:"UserModel",
-        required:true
     },
 
     testType:{

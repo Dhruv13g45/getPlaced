@@ -11,6 +11,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Layout from "./components/layout/Layout.jsx"
 import VideoMeet from './pages/VideoMeet.jsx';
 import TestLists from './components/common/TestLists.jsx';
+import Test from './pages/Test.jsx';
+
+
+
 
 const theme = createTheme({
   palette: {
@@ -18,7 +22,7 @@ const theme = createTheme({
       main: '#4f46e5',
     },
     secondary: {
-      main: '#10b981', 
+      main: '#10b981',
     },
     background: {
       default: '#f9fafb',
@@ -58,14 +62,26 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
-            <Route path="/" element={<Dashboard />} />
+
+            <Route index element={<Dashboard />} />
+
             <Route path="mock-interviews" element={<MockInterview />} />
-            <Route path="aptitude-questions/*" element={<AptitudePractice />} />
+
+            <Route path="aptitude-questions" element={<AptitudePractice />} />
+            <Route path="/aptitude-questions/:category" element={<TestLists />} />
+            <Route
+              path="/aptitude-questions/:category/test/:testName"
+              element={<Test />}
+            />
+
             <Route path="dsa-practice" element={<DSAPractice />} />
             <Route path="resume-analyzer" element={<ResumeAnalyzer />} />
             <Route path="group-discussion" element={<GroupDiscussion />} />
+
             <Route path="meet/:url" element={<VideoMeet />} />
+
             <Route path="settings" element={<SettingsPage />} />
+
           </Route>
         </Routes>
       </BrowserRouter>

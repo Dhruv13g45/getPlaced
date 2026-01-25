@@ -4,7 +4,6 @@ const userAnswersModel = new Schema({
     userId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "UserModel",
-        required:true,
     },
     testId:{
         type: mongoose.Schema.Types.ObjectId,

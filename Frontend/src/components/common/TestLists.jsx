@@ -1,113 +1,102 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Typography, Card, CardContent, Button } from "@mui/material";
-import NoteAltIcon from '@mui/icons-material/NoteAlt';
-import { Routes, Route, useNavigate } from "react-router-dom";
-import Test from "../../pages/Test.jsx";
+import {
+  Typography,
+  Card,
+  Button,
+  Box,
+} from "@mui/material";
+import NoteAltIcon from "@mui/icons-material/NoteAlt";
+import { useNavigate, useParams } from "react-router-dom";
 
-export default function TestLists({ category }) {
+export default function TestLists() {
+  const { category } = useParams();     
+  const navigate = useNavigate();
 
-    const navigate = useNavigate()
-    const [questions, setQuestions] = useState([]);
-    const [tests, setTests] = useState({})
+  const [questions, setQuestions] = useState([]);
+  const [tests, setTests] = useState({});
 
-    const splitInTests = () => {
-        const questionsPerTest = 20;
+  // Split questions into tests
+  const splitInTests = () => {
+    const QUESTIONS_PER_TEST = 20;
+    let testObj = {};
+    let temp = [];
+    let testCount = 1;
 
-        let testObj = {};
-        let questionsCount = 0;
-        let questionArray = [];
-        let testNumber = 0;
+    questions.forEach((q) => {
+      temp.push(q);
 
-        for (let i = 0; i < questions.length; i++) {
-            questionArray.push(questions[i]);
-            questionsCount++;
+      if (temp.length === QUESTIONS_PER_TEST) {
+        testObj[`Test${testCount}`] = temp;
+        temp = [];
+        testCount++;
+      }
+    });
 
-            if (questionsCount === questionsPerTest) {
-                testNumber++;
-                testObj["Test" + testNumber] = questionArray;
-                questionArray = [];
-                questionsCount = 0;
-            }
-        }
-
-        if (questionsCount > 0 && questionsCount >= 10) {
-            testNumber++;
-            testObj["Test" + testNumber] = questionArray;
-        }
-
-        setTests(testObj);
-
+    // Add remaining questions if at least 10
+    if (temp.length >= 10) {
+      testObj[`Test${testCount}`] = temp;
     }
 
+    setTests(testObj);
+  };
 
-    const navigateToTest = (testId) => {
-        navigate(`/${testId}`)
-    }
+  // Fetch questions from backend
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:8000/aptitude-questions/get-${category}-questions`
+        );
 
+        const questionsArray = Object.values(res.data.data.allQuestions);
+        setQuestions(questionsArray);
+      } catch (err) {
+        console.error("Error fetching questions:", err);
+      }
+    };
 
-    useEffect(() => {
-        const fetchQuestions = async () => {
-            try {
-                const res = await axios.get(
-                    `http://localhost:8000/aptitude-questions/get-${category}-questions`
-                );
-                const questionsData = await res?.data?.data?.allQuestions
-                const questionsArray = Object.values(questionsData)
+    fetchQuestions();
+  }, [category]);
 
-                setQuestions(questionsArray)
+  useEffect(() => {
+    if (questions.length > 0) splitInTests();
+  }, [questions]);
 
-            } catch (err) {
-                console.error(err);
-            }
-        };
+  return (
+    <>
+      <Typography variant="h5" fontWeight={600} mb={3}>
+        {category.toUpperCase()} Tests
+      </Typography>
 
-        fetchQuestions();
-    }, [category]);
+      <Box display="flex" flexDirection="column" gap={2}>
+        {Object.keys(tests).map((testName) => (
+          <Card
+            key={testName}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              p: 2.5,
+              borderRadius: 3,
+            }}
+          >
+            <Box display="flex" alignItems="center" gap={1}>
+              <NoteAltIcon color="primary" />
+              <Typography fontWeight={600}>{testName}</Typography>
+            </Box>
 
-
-    useEffect(() => {
-        if (questions.length > 0) {
-            splitInTests();
-        }
-    }, [questions]);
-
-
-    console.log(tests)
-
-
-    return (
-        <>
-            <Typography variant="h5" mb={2}>
-                {category.toUpperCase()} Tests
-            </Typography>
-
-            {Object.entries(tests).map(([testName, questions], i) => (
-                <Card key={testName}>
-                    {
-                    console.log(testName, questions, i)
-                    }
-                    <span>
-                        <NoteAltIcon />
-                        {testName}
-                    </span>
-
-                    <Button
-                        variant="contained"
-                        sx={{
-                            bgcolor: "#fff",
-                            color: "#6a5cff",
-                            fontWeight: 600,
-                            "&:hover": { bgcolor: "#f1f1f1" },
-                        }}
-                        onClick={() => navigateToTest(testName)}
-                    >
-                        Start Mock Test
-                    </Button>
-                </Card>
-            ))}
-
-
-        </>
-    );
+            <Button
+              variant="contained"
+              onClick={() =>
+                navigate(`/aptitude-questions/${category}/test/${testName}`)
+              }
+            >
+              Start Mock Test
+            </Button>
+          </Card>
+        ))}
+      </Box>
+    </>
+  );
 }
