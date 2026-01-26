@@ -4,7 +4,7 @@
   "main": "src/index.js",
   "type": "module",
   "scripts": {
-    "test": "nodemon src/server.js"
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -16,19 +16,27 @@
     "axios": "^1.13.2",
     "body-parser": "^1.20.2",
     "cloudinary": "^2.7.0",
+    "@google/genai": "^1.38.0",
+    "bcrypt": "^6.0.0",
+    "cloudinary": "^2.9.0",
     "cookie-parser": "^1.4.7",
-    "cors": "^2.8.5",
+    "cors": "^2.8.6",
+    "csv-parser": "^3.2.0",
     "dotenv": "^17.2.3",
+    "express": "^5.2.1",
     "express": "^5.2.1",
     "http-status": "^2.1.0",
     "iconv-lite": "^0.6.3",
     "jsonwebtoken": "^9.0.2",
     "mammoth": "^1.11.0",
     "mongoose": "^9.1.4",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.1.5",
     "multer": "^2.0.2",
     "nodemon": "^3.1.10",
     "pdf-parse": "^1.1.1",
     "raw-body": "^2.5.2",
+    "nodemon": "^3.1.11",
     "socket.io": "^4.8.3"
   }
 }

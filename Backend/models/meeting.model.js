@@ -8,5 +8,5 @@ const meetingSchema=new Schema(
     }
 )
 
-const Meeting=mongoose.model("Meeting",meetingSchema);
+const Meeting=mongoose.model("MeetingModel",meetingSchema);
 export default Meeting;

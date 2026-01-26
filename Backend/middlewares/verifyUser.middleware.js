@@ -1,1 +1,0 @@
-// The code for verification and the authentication of the user will be going here
