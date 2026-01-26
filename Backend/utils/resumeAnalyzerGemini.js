@@ -75,8 +75,25 @@ ${resumeText.slice(0, 5000)}
     return JSON.parse(cleanedText);
   } catch (err) {
     console.error("====== GEMINI RESUME ERROR ======");
-    console.error(err);
+
+    // Basic error message
+    console.error("Message:", err.message);
+
+    // Stack trace (very important)
+    console.error("Stack:", err.stack);
+
+    // Gemini-specific response (if available)
+    if (err.response) {
+      console.error("Gemini Response:", JSON.stringify(err.response, null, 2));
+    }
+
+    // Sometimes error is nested differently
+    if (err.cause) {
+      console.error("Cause:", err.cause);
+    }
+
     console.error("================================");
+
     throw new Error("Gemini resume analysis failed");
   }
 }

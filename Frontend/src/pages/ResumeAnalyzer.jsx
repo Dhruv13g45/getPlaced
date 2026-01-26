@@ -46,7 +46,7 @@ const ResumeAnalyzer = () => {
         formData.append("file", file);
 
         try {
-            const res = await fetch("http://localhost:5000/api/resume/analyze", {
+            const res = await fetch("http://localhost:8000/api/resume/analyze", {
                 method: "POST",
                 body: formData,
             });

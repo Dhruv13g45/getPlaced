@@ -1,47 +1,44 @@
-<<<<<<< HEAD
-=======
-import Dashboard from './pages/Dashboard';
-import MockInterview from './pages/MockInterview';
-import DSAPractice from './pages/DSAPractice';
-import ResumeAnalyzer from './pages/ResumeAnalyzer';
-import GroupDiscussion from './pages/GroupDiscussion';
-import SettingsPage from './pages/SettingsPage';
-import AptitudePractice from './pages/AptitudePractice';
->>>>>>> 24a594a55e14b4f517295ef1fec9e3672d22a669
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import Layout from "./components/layout/Layout.jsx"
-import VideoMeet from './pages/VideoMeet.jsx';
-import TestLists from './components/common/TestLists.jsx';
-import Test from './pages/Test.jsx';
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
+import Layout from "./components/layout/Layout.jsx";
 
+import Dashboard from "./pages/Dashboard";
+import MockInterview from "./pages/MockInterview";
+import DSAPractice from "./pages/DSAPractice";
+import ResumeAnalyzer from "./pages/ResumeAnalyzer";
+import GroupDiscussion from "./pages/GroupDiscussion";
+import SettingsPage from "./pages/SettingsPage";
+import AptitudePractice from "./pages/AptitudePractice";
+import VideoMeet from "./pages/VideoMeet.jsx";
 
+import TestLists from "./components/common/TestLists.jsx";
+import Test from "./pages/Test.jsx";
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#4f46e5',
+      main: "#4f46e5",
     },
     secondary: {
-      main: '#10b981',
+      main: "#10b981",
     },
     background: {
-      default: '#f9fafb',
-      paper: '#ffffff',
+      default: "#f9fafb",
+      paper: "#ffffff",
     },
   },
   typography: {
     fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
+      "-apple-system",
+      "BlinkMacSystemFont",
       '"Segoe UI"',
-      'Roboto',
+      "Roboto",
       '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-    ].join(','),
+      "Arial",
+      "sans-serif",
+    ].join(","),
   },
   shape: {
     borderRadius: 12,
@@ -50,7 +47,7 @@ const theme = createTheme({
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: 'none',
+          textTransform: "none",
           fontWeight: 600,
         },
       },
@@ -65,13 +62,15 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
-
             <Route index element={<Dashboard />} />
 
             <Route path="mock-interviews" element={<MockInterview />} />
 
             <Route path="aptitude-questions" element={<AptitudePractice />} />
-            <Route path="/aptitude-questions/:category" element={<TestLists />} />
+            <Route
+              path="/aptitude-questions/:category"
+              element={<TestLists />}
+            />
             <Route
               path="/aptitude-questions/:category/test/:testName"
               element={<Test />}
@@ -84,7 +83,6 @@ function App() {
             <Route path="meet/:url" element={<VideoMeet />} />
 
             <Route path="settings" element={<SettingsPage />} />
-
           </Route>
         </Routes>
       </BrowserRouter>
