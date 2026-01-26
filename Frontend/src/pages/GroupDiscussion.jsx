@@ -45,10 +45,10 @@ export default function GroupDiscussion() {
         </div>
       </div>
 
-      {/* RIGHT SECTION */}
       <div className="Meeting-right">
         <img src={gdImage} alt="group discussion" />
       </div>
     </div>
   );
 }
+

@@ -1,1 +1,8 @@
-// routes related to the user will go here
+import express from "express"
+
+const router = express.Router()
+
+
+
+
+export default router
