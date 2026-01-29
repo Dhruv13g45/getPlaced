@@ -1,0 +1,107 @@
+.resume-root {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f9fafb;
+  padding: 24px 0 64px;
+  overflow-y: auto;
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Upload box */
+.upload-box {
+  padding: 48px;
+  border: 2px dashed #6366f1;
+  border-radius: 16px;
+  background: #f8faff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: 16px;
+  text-align: center;
+}
+
+.upload-box:hover {
+  border-color: #6366f1;
+  background-color: #f8faff;
+  cursor: pointer;
+}
+
+.ats-card {
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+/* ATS Card */
+.ats-card {
+  padding: 32px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: white;
+  text-align: center;
+}
+
+/* Suggestions */
+.suggestion-card {
+  padding: 20px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+}
+
+.impact-chip {
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.impact-chip.high {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.impact-chip.medium {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.impact-chip.low {
+  background-color: #ecfdf5;
+  color: #065f46;
+}
+
+.before-text {
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+.after-text {
+  color: #059669;
+  font-weight: 500;
+}
+
+/* Improve readability */
+.suggestion-card {
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Prevent text overflow */
+.before-text,
+.after-text {
+  word-break: break-word;
+}

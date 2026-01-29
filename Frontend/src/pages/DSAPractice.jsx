@@ -1,9 +1,9 @@
-// import react from "react"
+import react from "react"
 
-// const DSAPractice = () => {
-//     return (
-//         <div>   DSA Practice Page</div>
-//     )
-// }
+const DSAPractice = () => {
+    return (
+        <div>   DSA Practice Page</div>
+    )
+}
 
-// export default DSAPractice;
+export default DSAPractice;

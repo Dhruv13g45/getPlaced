@@ -1,0 +1,120 @@
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+.Meeting {
+  height: 100vh;
+  background-color: #f9fafb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.5rem 4rem;
+  overflow: hidden;
+}
+
+/* LEFT SECTION */
+.Meeting-left {
+  width: 48%;
+  margin-top: -100px;
+}
+
+.Meeting-left h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.Meeting-left h1 span {
+  color: #4f46e5;
+}
+
+.Meeting-left p {
+  margin-top: 1rem;
+  font-size: 1.05rem;
+  color: #6b7280;
+  max-width: 520px;
+}
+
+/* INPUT + BUTTON */
+.Meeting-input {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.Meeting-input .MuiOutlinedInput-root {
+  background-color: #ffffff;
+  height: 48px;
+}
+
+.join-btn {
+  height: 48px;
+  padding: 0 28px;
+  font-weight: 600;
+  background-color: #4f46e5 !important;
+  text-transform: uppercase;
+  border-radius: 8px;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.join-btn:hover {
+  background-color: #4338ca !important;
+}
+
+/* RIGHT IMAGE */
+.Meeting-right {
+  width: 52%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Meeting-right img {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+  .Meeting {
+    flex-direction: column;
+    text-align: center;
+    padding: 2rem;
+  }
+
+  .Meeting-left,
+  .Meeting-right {
+    width: 100%;
+  }
+
+  .Meeting-input {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .Meeting-right img {
+    margin-top: 2rem;
+    max-width: 90%;
+  }
+}
+
+.join-btn {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.join-btn:focus,
+.join-btn:focus-visible,
+.join-btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
