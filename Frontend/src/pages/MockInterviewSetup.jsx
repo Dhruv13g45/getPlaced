@@ -48,7 +48,7 @@ const MockInterviewSetup = () => {
       setLoading(true);
 
       const res = await axios.post(
-        "http://localhost:8080/api/companies/start",
+        "http://localhost:8000/api/companies/start",
         {
           companyName,
           interviewType,

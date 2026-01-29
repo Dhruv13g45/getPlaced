@@ -23,7 +23,7 @@ const Company = () => {
   useEffect(() => {
     const fetchCompanies = async () => {
       try {
-        const res = await axios.get("http://localhost:8080/api/companies");
+        const res = await axios.get("http://localhost:8000/api/companies");
         setCompanies(res.data);
       } catch (error) {
         console.error("Failed to fetch companies", error);

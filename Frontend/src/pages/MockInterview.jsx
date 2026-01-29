@@ -98,7 +98,7 @@ const MockInterview = () => {
       console.log("final response:", finalResponses);
 
       const res = await axios.post(
-        "http://localhost:8080/api/interview/evaluate",
+        "http://localhost:8000/api/interview/evaluate",
         {
           companyName,
           interviewType,
@@ -111,7 +111,7 @@ const MockInterview = () => {
         },
       );
 
-      setEvaluation(res.data); // axios auto-parses JSON
+      setEvaluation(res.data);
     } catch (error) {
       console.error("Evaluation failed", error);
     } finally {
@@ -291,7 +291,7 @@ const MockInterview = () => {
           color: "#fff",
           fontWeight: 600,
           textTransform: "none",
-          mb: 8, // ✅ ADDED SPACE FROM BOTTOM
+          mb: 8,
           "&:hover": { backgroundColor: "#4338ca" },
         }}
       >
