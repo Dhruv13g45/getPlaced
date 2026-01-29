@@ -5,16 +5,18 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Layout from "./components/layout/Layout.jsx";
 
 import Dashboard from "./pages/Dashboard";
-import MockInterview from "./pages/MockInterview";
 import DSAPractice from "./pages/DSAPractice";
 import ResumeAnalyzer from "./pages/ResumeAnalyzer";
 import GroupDiscussion from "./pages/GroupDiscussion";
 import SettingsPage from "./pages/SettingsPage";
 import AptitudePractice from "./pages/AptitudePractice";
 import VideoMeet from "./pages/VideoMeet.jsx";
-
+import Company from "./pages/Company.jsx";
 import TestLists from "./components/common/TestLists.jsx";
 import Test from "./pages/Test.jsx";
+import MockInterviewSetup from "./pages/MockInterviewSetup.jsx";
+import MockInterview from "./pages/MockInterview";
+
 
 const theme = createTheme({
   palette: {
@@ -63,8 +65,12 @@ function App() {
         <Routes>
           <Route element={<Layout />}>
             <Route index element={<Dashboard />} />
-
-            <Route path="mock-interviews" element={<MockInterview />} />
+            <Route path="/mock-interviews" element={<Company />} />
+            <Route
+              path="/mock-interview/:companyName"
+              element={<MockInterviewSetup />}
+            />
+            <Route path="/interview" element={<MockInterview />} />
 
             <Route path="aptitude-questions" element={<AptitudePractice />} />
             <Route
