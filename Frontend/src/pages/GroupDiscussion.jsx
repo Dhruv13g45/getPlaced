@@ -14,6 +14,7 @@ export default function GroupDiscussion() {
   };
 
   return (
+      <div className="group-discussion-page">
     <div className="Meeting">
       {/* LEFT SECTION */}
       <div className="Meeting-left">
@@ -48,6 +49,7 @@ export default function GroupDiscussion() {
       <div className="Meeting-right">
         <img src={gdImage} alt="group discussion" />
       </div>
+    </div>
     </div>
   );
 }

@@ -8,6 +8,8 @@ import connectDB from "./db/db.js";
 import TestRouter from "./routes/tests.routes.js";
 import seedQuestionsInDatabase from "./utils/seedQuestions.js";
 import questionsModel from "./models/questions.model.js";
+import MockInterview from "./models/mockInterview.model.js";
+import mockInterviewData from "./mockInterviewData/data.js";
 
 dotenv.config();
 
@@ -32,6 +34,8 @@ app.use("/aptitude-questions", TestRouter);
 const server = createServer(app);
 connectToServer(server);
 
+
+
 /* ---------- startup ---------- */
 const startServer = async () => {
   try {
@@ -53,5 +57,11 @@ const startServer = async () => {
     process.exit(1);
   }
 };
+
+
+//mockinterviw
+
+
+
 
 startServer();
