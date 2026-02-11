@@ -5,8 +5,10 @@ import logicalQuestions from "./extractLogicalQuestions.js"
 import questionsModel from "../models/questions.model.js"
 import customApiError from "./customApiError.js"
 import CustomApiResponse from "./customApiResponse.js"
+import dsaQuestions from "../dsaData/dsa_problems.json" with { type: "json" };
 
-const seedQuestionsInDatabase = async() =>{
+
+const seedAptitudeQuestionsInDatabase = async() =>{
 
     const mockQuestionsData = await extractAllData()
 
@@ -88,7 +90,15 @@ const seedQuestionsInDatabase = async() =>{
     }
 
 
-
 }
 
-export default seedQuestionsInDatabase
+
+
+const seedDSAQuestionsInDatabase = async () =>{
+    console.log(dsaQuestions)
+}
+
+
+
+
+export  {seedAptitudeQuestionsInDatabase, seedDSAQuestionsInDatabase}
