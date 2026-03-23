@@ -33,7 +33,8 @@ import connectDB from "./db/db.js";
 import TestRouter from "./routes/tests.routes.js";
 import seedQuestionsInDatabase from "./utils/seedQuestions.js";
 import questionsModel from "./models/questions.model.js";
-
+import companiesRoutes from "./routes/mockInterview.routes.js";
+import interviewEvaluationRoutes from "./routes/interviewEvaluation.routes.js";
 dotenv.config();
 
 const app = express();
@@ -52,6 +53,8 @@ app.use(express.urlencoded({ extended: true }));
 /* ---------- routes ---------- */
 app.use("/api/resume", resumeRoutes);
 app.use("/aptitude-questions", TestRouter);
+app.use("/api/companies", companiesRoutes);
+app.use("/api/interview", interviewEvaluationRoutes);
 
 /* ---------- server + socket ---------- */
 const server = createServer(app);
