@@ -5,7 +5,9 @@ import logicalQuestions from "./extractLogicalQuestions.js"
 import questionsModel from "../models/questions.model.js"
 import customApiError from "./customApiError.js"
 import CustomApiResponse from "./customApiResponse.js"
-import dsaQuestions from "../dsaData/dsa_problems.json" with { type: "json" };
+import extractDSAQuestions from "./extractDSAQuestions.js"
+import fs from "fs"
+import DsaQuestionModel from "../models/dsaQuestion.model.js"
 
 
 const seedAptitudeQuestionsInDatabase = async() =>{
@@ -82,9 +84,9 @@ const seedAptitudeQuestionsInDatabase = async() =>{
     try {
         await questionsModel.insertMany(allQuestions)
         console.log("Data extracted and stored in database successfullyy")
-        return res.status(200).json(
-            new CustomApiResponse("Sucessfully stored questions !!", 200, {allQuestions})
-        )
+        // return res.status(200).json(
+        //     new CustomApiResponse("Sucessfully stored questions !!", 200, {allQuestions})
+        // )
     } catch (error) {
         throw new customApiError("Error while uploading the data !!", 500,error)
     }
@@ -95,7 +97,15 @@ const seedAptitudeQuestionsInDatabase = async() =>{
 
 
 const seedDSAQuestionsInDatabase = async () =>{
-    console.log(dsaQuestions)
+    const dsaQuestions = await extractDSAQuestions()
+
+    try {
+        await DsaQuestionModel.insertMany(dsaQuestions)
+        console.log("Data extracted and stored in database successfullyy")
+    } catch (error) {
+        throw new customApiError("Error while uploading the data !!", 500, error)
+    }
+
 }
 
 

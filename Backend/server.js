@@ -9,6 +9,7 @@ import TestRouter from "./routes/tests.routes.js";
 import {seedAptitudeQuestionsInDatabase, seedDSAQuestionsInDatabase} from "./utils/seedQuestions.js";
 import questionsModel from "./models/questions.model.js";
 import DSAQuestion from "./models/dsaQuestion.model.js";
+import dsaRouter from "./routes/dsa.routes.js";
 
 dotenv.config();
 
@@ -28,7 +29,7 @@ app.use(express.urlencoded({ extended: true }));
 /* ---------- routes ---------- */
 app.use("/api/resume", resumeRoutes);
 app.use("/aptitude-questions", TestRouter);
-
+app.use("/dsa", dsaRouter)
 
 /* ---------- server + socket ---------- */
 const server = createServer(app);
