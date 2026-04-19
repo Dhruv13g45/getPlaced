@@ -12,7 +12,7 @@ import ScreenShareIcon from "@mui/icons-material/ScreenShare";
 import StopScreenShareIcon from "@mui/icons-material/StopScreenShare";
 import CallEndIcon from "@mui/icons-material/CallEnd";
 
-const server_url = "http://localhost:8080";
+const server_url = "http://localhost:8000";
 
 var connections = {};
 
