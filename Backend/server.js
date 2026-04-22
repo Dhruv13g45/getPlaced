@@ -6,10 +6,16 @@ import { connectToServer } from "./controllers/socketManager.js";
 import resumeRoutes from "./routes/resume.routes.js";
 import connectDB from "./db/db.js";
 import TestRouter from "./routes/tests.routes.js";
-import seedQuestionsInDatabase from "./utils/seedQuestions.js";
+import {seedAptitudeQuestionsInDatabase, seedDSAQuestionsInDatabase} from "./utils/seedQuestions.js";
 import questionsModel from "./models/questions.model.js";
+
+import DSAQuestion from "./models/dsaQuestion.model.js";
+import dsaRouter from "./routes/dsa.routes.js";
+
+
 import companiesRoutes from "./routes/mockInterview.routes.js";
 import interviewEvaluationRoutes from "./routes/interviewEvaluation.routes.js";
+
 dotenv.config();
 
 const app = express();
@@ -28,8 +34,12 @@ app.use(express.urlencoded({ extended: true }));
 /* ---------- routes ---------- */
 app.use("/api/resume", resumeRoutes);
 app.use("/aptitude-questions", TestRouter);
+
+app.use("/dsa", dsaRouter)
+
 app.use("/api/companies", companiesRoutes);
 app.use("/api/interview", interviewEvaluationRoutes);
+
 
 /* ---------- server + socket ---------- */
 const server = createServer(app);
@@ -41,11 +51,18 @@ const startServer = async () => {
     await connectDB();
     console.log("Database connected");
 
-    const questionCount = await questionsModel.countDocuments();
-    if (questionCount === 0) {
-      console.log("Extracting questions");
-      await seedQuestionsInDatabase();
-      console.log("Questions extracted and saved successfully");
+    const AptiQuestionCount = await questionsModel.countDocuments();
+    if (AptiQuestionCount === 0) {
+      console.log("Extracting aptitude questions");
+      await seedAptitudeQuestionsInDatabase();
+      console.log("Aptitude Questions extracted and saved successfully");
+    }
+
+    const DsaQuestionCount = await DSAQuestion.countDocuments()
+    if (DsaQuestionCount === 0){
+      console.log("Extarcting DSA Questions");
+      await seedDSAQuestionsInDatabase()
+      console.log("DSA Questions extracted and saved successfully");
     }
 
     server.listen(PORT, () => {

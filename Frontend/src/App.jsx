@@ -18,6 +18,10 @@ import MockInterviewSetup from "./pages/MockInterviewSetup.jsx";
 import MockInterview from "./pages/MockInterview";
 import ExperienceShare from "./pages/ExperienceShare.jsx";
 
+
+import DsaQuestionsList from "./components/common/DsaQuestionsList.jsx"
+import DsaPlayGround from "./components/common/DsaPlayGround.jsx";
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -84,6 +88,8 @@ function App() {
             />
 
             <Route path="dsa-practice" element={<DSAPractice />} />
+            <Route path="dsa-practise/:topic" element={<DsaQuestionsList />}/>
+            <Route path="dsa-practise/:topic/:questionId" element={<DsaPlayGround />} />
             <Route path="resume-analyzer" element={<ResumeAnalyzer />} />
             <Route path="group-discussion" element={<GroupDiscussion />} />
 
