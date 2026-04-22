@@ -18,7 +18,7 @@ const extractDSAQuestions = () => {
                 problemDescription: singleQuestion?.description,
                 problemSlug: singleQuestion?.problem_slug,
                 difficultyLevel: singleQuestion?.difficulty?.toLowerCase(),
-                topics: singleQuestion?.topics || [],
+                topics: singleQuestion?.topics?.map((topic)=>topic.toLowerCase()) || [],
                 inputConstraints: singleQuestion?.constraints,
                 examples: singleQuestion?.examples,
                 hints: singleQuestion?.hints,

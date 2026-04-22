@@ -4,7 +4,7 @@ import CustomApiResponse from "../utils/customApiResponse.js"
 
 const getTopicWiseDSAQuestions = async(req,res)=>{
 
-    const {topic} = req.body
+    const {topic} = req.query
 
     if(!topic){
         throw new CustomApiError("Topic is required to fetch questions !!", 400)
@@ -14,6 +14,7 @@ const getTopicWiseDSAQuestions = async(req,res)=>{
         {topics:topic}
     ).select("-problemDescription -inputConstraints -examples -hints -starterCode")
 
+console.log(topicWiseQuestions)
     if (!topicWiseQuestions || topicWiseQuestions.length === 0) {
         throw new CustomApiError("No questions found for the specified topic", 404)
     }

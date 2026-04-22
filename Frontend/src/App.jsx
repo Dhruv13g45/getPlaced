@@ -16,6 +16,10 @@ import VideoMeet from "./pages/VideoMeet.jsx";
 import TestLists from "./components/common/TestLists.jsx";
 import Test from "./pages/Test.jsx";
 
+
+import DsaQuestionsList from "./components/common/DsaQuestionsList.jsx"
+import DsaPlayGround from "./components/common/DsaPlayGround.jsx";
+
 const theme = createTheme({
   palette: {
     primary: {
@@ -77,6 +81,8 @@ function App() {
             />
 
             <Route path="dsa-practice" element={<DSAPractice />} />
+            <Route path="dsa-practise/:topic" element={<DsaQuestionsList />}/>
+            <Route path="dsa-practise/:topic/:questionId" element={<DsaPlayGround />} />
             <Route path="resume-analyzer" element={<ResumeAnalyzer />} />
             <Route path="group-discussion" element={<GroupDiscussion />} />
 
