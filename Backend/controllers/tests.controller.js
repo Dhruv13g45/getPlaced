@@ -12,7 +12,6 @@ const getAllQuestions = async (req, res) => {
 
     const allQuestions = await questionsModel.find().select("-correctAnswer")
 
-    console.log(allQuestions)
 
     return res.status(200).json(
         new customApiResponse("Sucessfully retrived mock questions !!", 200, { allQuestions })
@@ -28,7 +27,6 @@ const getMathQuestions = asyncHandler(async (req, res) => {
 
     const allQuestions = await questionsModel.find({ category: "math" }).select("-correctAnswer")
 
-    console.log(allQuestions)
 
     return res.status(200).json(
         new customApiResponse("Sucessfully retrived math questions !!", 200, { allQuestions })
@@ -44,7 +42,6 @@ const getLogicalQuestions = async (req, res) => {
 
     const allQuestions = await questionsModel.find({ category: "logical" }).select("-correctAnswer")
 
-    console.log(allQuestions)
 
     return res.status(200).json(
         new customApiResponse("Sucessfully retrived logical questions !!", 200, { allQuestions })
@@ -60,7 +57,6 @@ const getComputerQuestions = async (req, res) => {
 
     const allQuestions = await questionsModel.find({ category: "computer" }).select("-correctAnswer")
 
-    console.log(allQuestions)
 
     return res.status(200).json(
         new customApiResponse("Sucessfully retrived computer questions !!", 200, { allQuestions })
@@ -78,7 +74,6 @@ const submitTest = async (req, res) => {
 
         const question = await questionsModel.findById(questionId);
 
-        console.log(question)
 
         if (!question) continue;
 
