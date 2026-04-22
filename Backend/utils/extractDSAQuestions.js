@@ -21,8 +21,6 @@ const extractDSAQuestions = () => {
 
                 topics: singleQuestion?.topics?.map((topic)=>topic.toLowerCase()) || [],
 
-                topics: singleQuestion?.topics || [],
-
                 inputConstraints: singleQuestion?.constraints,
                 examples: singleQuestion?.examples,
                 hints: singleQuestion?.hints,

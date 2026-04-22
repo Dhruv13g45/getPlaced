@@ -6,8 +6,6 @@ const getTopicWiseDSAQuestions = async(req,res)=>{
 
     const {topic} = req.query
 
-    const {topic} = req.body
-
     if(!topic){
         throw new CustomApiError("Topic is required to fetch questions !!", 400)
     }
