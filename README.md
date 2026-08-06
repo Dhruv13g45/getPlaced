@@ -384,7 +384,6 @@ All backend routes are served from `http://localhost:8000`.
 </details>
 
 ---
-
 ## Contributors
 
 This project was built collaboratively by a team of developers from VESIT.
@@ -409,15 +408,23 @@ This project was built collaboratively by a team of developers from VESIT.
         <sub><b>Dhruv Goradia</b></sub>
       </a>
     </td>
-    <td align="center">
-      <a href="https://github.com/druv200">
-        <img src="https://github.com/druv200.png" width="80px" alt="druv200"/><br />
-        <sub><b>druv200</b></sub>
-      </a>
-    </td>
   </tr>
 </table>
 
+### Sundarm Yadav
+- Resume Analyzer module — ATS scoring and AI-powered suggestions (Gemini)
+- Authentication system — JWT + bcrypt based signup/login flow
+- Admin Panel — submission review, approval/rejection workflow, PDF-based question seeding
+
+### Supriya Kushwaha
+- Group Discussion module — real-time video/audio meet rooms using WebRTC + Socket.IO
+- AI Mock Interview module — company-specific interview flow, AssemblyAI voice transcription, Gemini-based evaluation and scoring
+- Student Dashboard — personalized stats, activity feed, and quick actions
+
+### Dhruv Goradia
+- DSA Practice module — problem browsing, Monaco code editor integration, JDoodle code execution, AI code review
+- Aptitude Practice module — timed tests, mock test mode, scoring
+- UI/UX responsiveness — cross-device screen friendliness and layout consistency
 ---
 
 ## 🤝 Contributing
