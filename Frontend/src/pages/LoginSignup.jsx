@@ -94,19 +94,37 @@ export default function LoginSignup() {
         minHeight: "100vh",
         bgcolor: "#f4f2ee",
         display: "flex",
-        alignItems: "center",
+        alignItems: {
+          xs: "flex-start",
+          md: "center",
+        },
+        pt: {
+          xs: 5,
+          md: 0,
+        },
       }}
     >
       <Container maxWidth="lg">
         <Stack
           direction={{ xs: "column", md: "row" }}
-          spacing={8}
+          spacing={{ xs: 4, md: 8 }}
           alignItems="center"
           justifyContent="center"
         >
           {/* LEFT */}
           <Box flex={1}>
-            <Typography variant="h2" fontWeight={900}>
+            <Typography
+              fontWeight={900}
+              sx={{
+                fontSize: {
+                  xs: "2rem",
+                  sm: "2.5rem",
+                  md: "3.5rem",
+                  lg: "4rem",
+                },
+                lineHeight: 1.1,
+              }}
+            >
               <span style={{ color: "#111827" }}>Get</span>
               <span style={{ color: "#5b5ce2" }}>Placed</span>
             </Typography>

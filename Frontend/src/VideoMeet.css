@@ -1,13 +1,13 @@
 /* PAGE BACKGROUND */
 .lobby-container {
-  height: 100%;
   width: 100%;
+  height: 100vh;
+  overflow: hidden;
   background-color: #f9fafb;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 /* LOBBY CARD */
 .lobby-card {
   background-color: #ffffff;
@@ -220,17 +220,13 @@
   background: #b91c1c !important;
 }
 
-body {
-  overflow: hidden;
-}
-
 /* =========================
    RESPONSIVE
 ========================= */
 @media (max-width: 480px) {
   .lobby-card {
-    width: 100%;
-    margin: 0 1rem;
+    width: min(420px, 92vw);
+    padding: 1.5rem;
   }
   .lobby-form {
     flex-direction: column;

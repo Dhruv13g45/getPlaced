@@ -30,7 +30,7 @@ const Dashboard = () => {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user") || "{}");
   const firstName = user?.firstName || "User";
-  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:8000"
+  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:8000";
 
   const [scores, setScores] = useState({
     aptitudeScore: null,
@@ -42,12 +42,9 @@ const Dashboard = () => {
     const fetchStats = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get(
-          `${baseURL}/api/users/dashboard-stats`,
-          {
-            headers: { Authorization: `Bearer ${token}` },
-          },
-        );
+        const res = await axios.get(`${baseURL}/api/users/dashboard-stats`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
         setScores(res.data);
       } catch (err) {
         console.error("Failed to fetch dashboard stats", err);
@@ -110,13 +107,27 @@ const Dashboard = () => {
           py: { xs: 3, md: 5 },
         }}
       >
-        <Container maxWidth="md">
+        <Container
+          maxWidth="lg"
+          sx={{
+            px: {
+              xs: 2,
+              sm: 3,
+              md: 0,
+            },
+          }}
+        >
+          {" "}
           {/* Welcome */}
           <Box sx={{ mb: 5 }}>
             <Typography
               sx={{
                 fontWeight: 700,
-                fontSize: { xs: "1.75rem", md: "2.25rem" },
+                fontSize: {
+                  xs: "1.5rem",
+                  sm: "1.9rem",
+                  md: "2.25rem",
+                },
                 color: "#111827",
                 mb: 0.5,
               }}
@@ -132,7 +143,11 @@ const Dashboard = () => {
           <Box
             sx={{
               display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "repeat(2, 1fr)",
+                md: "repeat(3, 1fr)",
+              },
               gap: 3,
               mb: 5,
             }}
@@ -205,7 +220,11 @@ const Dashboard = () => {
           <Box
             sx={{
               display: "grid",
-              gridTemplateColumns: "repeat(5, 1fr)",
+              gridTemplateColumns: {
+                xs: "repeat(2, 1fr)",
+                sm: "repeat(3, 1fr)",
+                md: "repeat(5, 1fr)",
+              },
               gap: 2,
               mb: 5,
             }}
@@ -252,7 +271,6 @@ const Dashboard = () => {
               </Card>
             ))}
           </Box>
-
           <Typography
             sx={{
               fontWeight: 700,
