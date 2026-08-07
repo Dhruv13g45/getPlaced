@@ -1,5 +1,13 @@
 import React from "react";
-import { Box, Typography, Chip, Paper, Divider, Button, CircularProgress } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Chip,
+  Paper,
+  Divider,
+  Button,
+  CircularProgress,
+} from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
@@ -16,7 +24,7 @@ const DsaPlayground = () => {
   const [redirecting, setRedirecting] = useState(false);
   const redirectTimerRef = useRef(null);
   const navigate = useNavigate();
-  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:8000"
+  const baseURL = import.meta.env.VITE_BASE_URL || "http://localhost:8000";
 
   const fetchQuestions = async () => {
     const response = await axios.get(
@@ -58,10 +66,14 @@ const DsaPlayground = () => {
         resData.stderr ||
         resData.compileError ||
         resData.runtimeError ||
-        (typeof resData.output === "string" && /error/i.test(resData.output) ? resData.output : null);
+        (typeof resData.output === "string" && /error/i.test(resData.output)
+          ? resData.output
+          : null);
 
-      const exitCode = typeof resData.exitCode !== "undefined" ? resData.exitCode : null;
-      const successFlag = typeof resData.success !== "undefined" ? resData.success : null;
+      const exitCode =
+        typeof resData.exitCode !== "undefined" ? resData.exitCode : null;
+      const successFlag =
+        typeof resData.success !== "undefined" ? resData.success : null;
 
       const isSuccessful = (() => {
         if (successFlag === false) return false;
@@ -70,7 +82,11 @@ const DsaPlayground = () => {
         // if output exists (including empty string) treat as success
         if (typeof resData.output !== "undefined") return true;
         // fallback: if there's cpuTime or memory returned assume success
-        if (typeof resData.cpuTime !== "undefined" || typeof resData.memory !== "undefined") return true;
+        if (
+          typeof resData.cpuTime !== "undefined" ||
+          typeof resData.memory !== "undefined"
+        )
+          return true;
         return false;
       })();
 
@@ -104,33 +120,52 @@ const DsaPlayground = () => {
       } else {
         // do not redirect on error — show error details
         const message =
-          backendError || resData.message || resData.detail || "Error executing code";
+          backendError ||
+          resData.message ||
+          resData.detail ||
+          "Error executing code";
         setOutput(message);
         setRedirecting(false);
       }
-      
     } catch (error) {
       console.log(error);
-      setOutput(error?.response?.data?.message || error.message || "Error executing code");
+      setOutput(
+        error?.response?.data?.message ||
+          error.message ||
+          "Error executing code",
+      );
       setLoading(false);
       setRedirecting(false);
     }
   };
 
   return (
-    <Box sx={{ height: "100%", backgroundColor: "#f8f9fa" }}>
-      <Box sx={{ height: "100%" }}>
+    <Box sx={{ minHeight: "100vh", backgroundColor: "#f8f9fa" }}>
+      {" "}
+      <Box sx={{ minHeight: "100%" }}>
         <Box
           sx={{
             display: "grid",
-            gridTemplateColumns: "40% 60%",
-            height: "100%",
+            gridTemplateColumns: {
+              xs: "1fr",
+              md: "40% 60%",
+            },
+            height: {
+              xs: "auto",
+              md: "100%",
+            },
+            gap: 2,
           }}
         >
           {/* LEFT PANEL */}
           <Paper
             elevation={2}
-            sx={{ p: 3, overflowY: "auto", borderRadius: 1 }}
+            sx={{
+              p: 3,
+              overflowY: "auto",
+              borderRadius: 1,
+              minHeight: { xs: "auto", md: "100%" },
+            }}
           >
             <Typography variant="h5" fontWeight="bold">
               {question.title}
@@ -175,17 +210,36 @@ const DsaPlayground = () => {
 
           {/* RIGHT PANEL */}
           <Box
-            sx={{ display: "flex", flexDirection: "column", height: "100%" }}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              height: { xs: "auto", md: "100%" },
+              minWidth: 0,
+            }}
           >
             <Paper
               elevation={2}
               sx={{ flex: 3, m: 1, p: 2, borderRadius: 0.5 }}
             >
               <Box
-                sx={{ display: "flex", justifyContent: "space-between", mb: 2 }}
+                sx={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  gap: 2,
+                  mb: 2,
+                }}
               >
                 <Typography variant="h6">Code Editor</Typography>
-                <Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    gap: 1,
+                  }}
+                >
+                  {" "}
                   <Button variant="outlined" sx={{ mr: 1 }} onClick={runCode}>
                     Run
                   </Button>
@@ -204,7 +258,7 @@ const DsaPlayground = () => {
                 </Box>
               </Box>
               <Editor
-                height="90%"
+                height="60vh"
                 defaultLanguage="python"
                 theme="vs-dark"
                 defaultValue="## Select a language to code in..."

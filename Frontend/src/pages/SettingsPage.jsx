@@ -20,45 +20,103 @@ const SettingsPage = () => {
   };
 
   return (
-    <Box sx={{ minHeight: "100vh", bgcolor: "#f8fafc", py: 5 }}>
-      <Container maxWidth="lg">
+    <Box
+      sx={{
+        minHeight: "100vh",
+        bgcolor: "#f8fafc",
+        py: { xs: 3, sm: 4, md: 5 },
+      }}
+    >
+      {" "}
+      <Container
+        maxWidth="lg"
+        sx={{
+          px: { xs: 2, sm: 3 },
+        }}
+      >
         {/* HEADER */}
-        <Typography variant="h4" fontWeight={700}>
+        <Typography
+          variant="h4"
+          fontWeight={700}
+          sx={{
+            fontSize: {
+              xs: "1.7rem",
+              sm: "2rem",
+              md: "2.2rem",
+            },
+          }}
+        >
+          {" "}
           Account Settings
         </Typography>
-        <Typography color="text.secondary" mb={4}>
+        <Typography
+          color="text.secondary"
+          mb={4}
+          sx={{
+            fontSize: {
+              xs: "0.9rem",
+              sm: "1rem",
+            },
+          }}
+        >
+          {" "}
           Manage your profile and academic information
         </Typography>
 
         <Card
           sx={{
-            p: 4,
-            borderRadius: "24px",
+            p: {
+              xs: 2,
+              sm: 3,
+              md: 4,
+            },
+            borderRadius: {
+              xs: "16px",
+              md: "24px",
+            },
             boxShadow: "0 20px 40px rgba(0,0,0,0.06)",
           }}
         >
           <Stack spacing={4}>
-
             {/* PROFILE */}
-            <Stack direction="row" spacing={3} alignItems="center">
+            <Stack
+              direction={{ xs: "column", sm: "row" }}
+              spacing={3}
+              alignItems="center"
+              textAlign={{ xs: "center", sm: "left" }}
+            >
+              {" "}
               <Avatar
                 sx={{
-                  width: 80,
-                  height: 80,
-                  fontSize: "2rem",
+                  width: { xs: 70, sm: 80 },
+                  height: { xs: 70, sm: 80 },
+                  fontSize: { xs: "1.6rem", sm: "2rem" },
                   fontWeight: 700,
-                  background:
-                    "linear-gradient(135deg, #6366F1, #8B5CF6)",
+                  background: "linear-gradient(135deg, #6366F1, #8B5CF6)",
                 }}
               >
                 {user?.firstName?.[0] || "U"}
               </Avatar>
-
               <Box>
-                <Typography fontWeight={700} fontSize="1.3rem">
+                <Typography
+                  fontWeight={700}
+                  sx={{
+                    fontSize: {
+                      xs: "1.15rem",
+                      sm: "1.3rem",
+                    },
+                  }}
+                >
+                  {" "}
                   {user?.firstName}
                 </Typography>
-                <Typography color="text.secondary">
+                <Typography
+                  color="text.secondary"
+                  sx={{
+                    wordBreak: "break-word",
+                  }}
+                >
+                  {" "}
                   {user?.email}
                 </Typography>
               </Box>
@@ -84,11 +142,17 @@ const SettingsPage = () => {
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                  <InfoBox label="Department" value={user?.department || "N/A"} />
+                  <InfoBox
+                    label="Department"
+                    value={user?.department || "N/A"}
+                  />
                 </Grid>
 
                 <Grid item xs={12} md={6}>
-                  <InfoBox label="Batch Year" value={user?.batchYear || "N/A"} />
+                  <InfoBox
+                    label="Batch Year"
+                    value={user?.batchYear || "N/A"}
+                  />
                 </Grid>
 
                 <Grid item xs={12} md={6}>
@@ -98,10 +162,23 @@ const SettingsPage = () => {
             </Box>
 
             {/* ACTION */}
-            <Box textAlign="right">
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: {
+                  xs: "center",
+                  sm: "flex-end",
+                },
+              }}
+            >
+              {" "}
               <Button
                 onClick={handleLogout}
                 sx={{
+                  width: {
+                    xs: "100%",
+                    sm: "auto",
+                  },
                   background: "#ef4444",
                   color: "white",
                   px: 4,
@@ -116,7 +193,6 @@ const SettingsPage = () => {
                 Logout
               </Button>
             </Box>
-
           </Stack>
         </Card>
       </Container>
@@ -137,7 +213,14 @@ const InfoBox = ({ label, value }) => (
     <Typography fontSize="0.85rem" color="#6b7280" mb={0.5}>
       {label}
     </Typography>
-    <Typography fontWeight={600}>{value || "-"}</Typography>
+    <Typography
+      fontWeight={600}
+      sx={{
+        wordBreak: "break-word",
+      }}
+    >
+      {value || "-"}
+    </Typography>{" "}
   </Box>
 );
 
